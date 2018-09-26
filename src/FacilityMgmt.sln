@@ -3,7 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2003
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FacilityMgmt.Api", "FacilityMgmt.Api\FacilityMgmt.Api.csproj", "{B24706F3-47ED-4844-B71D-616F4FB3C338}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacilityMgmt.Api", "FacilityMgmt.Api\FacilityMgmt.Api.csproj", "{B24706F3-47ED-4844-B71D-616F4FB3C338}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacilityMgmt.DAL.Common", "FacilityMgmt.DAL.Common\FacilityMgmt.DAL.Common.csproj", "{66C4E548-AC5B-46D6-956D-2E6109AE47CC}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FacilityMgmt.DAL.Dapper", "FacilityMgmt.DAL.Dapper\FacilityMgmt.DAL.Dapper.csproj", "{80B756DC-F65B-47D1-A083-BB4491B7A7CC}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "FacilityMgmt.DB", "FacilityMgmt.DB\FacilityMgmt.DB.sqlproj", "{CE3D958A-42BE-40AC-A13B-F1398B1C421C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +21,20 @@ Global
 		{B24706F3-47ED-4844-B71D-616F4FB3C338}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B24706F3-47ED-4844-B71D-616F4FB3C338}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B24706F3-47ED-4844-B71D-616F4FB3C338}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66C4E548-AC5B-46D6-956D-2E6109AE47CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66C4E548-AC5B-46D6-956D-2E6109AE47CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66C4E548-AC5B-46D6-956D-2E6109AE47CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66C4E548-AC5B-46D6-956D-2E6109AE47CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{80B756DC-F65B-47D1-A083-BB4491B7A7CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{80B756DC-F65B-47D1-A083-BB4491B7A7CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{80B756DC-F65B-47D1-A083-BB4491B7A7CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{80B756DC-F65B-47D1-A083-BB4491B7A7CC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CE3D958A-42BE-40AC-A13B-F1398B1C421C}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
