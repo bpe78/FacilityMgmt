@@ -34,7 +34,7 @@ namespace FacilityMgmt.DAL.Dapper.Repositories
         {
             try
             {
-                var result = await _connection.QuerySingleOrDefaultAsync<FacilityGroup>("[dbo].[facility_group_get_by_id]", new { group_id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                var result = await _connection.QuerySingleOrDefaultAsync<FacilityGroup>("[dbo].[facility_group_get_by_id]", new { id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return result;
             }
             catch (Exception ex)
@@ -43,12 +43,12 @@ namespace FacilityMgmt.DAL.Dapper.Repositories
             }
         }
 
-        public async Task<bool> Create(FacilityGroup model)
+        public async Task<int> Create(FacilityGroup model)
         {
             try
             {
-                var rowsAffected = await _connection.ExecuteAsync("[dbo].[facility_group_create]", new { name = model.Name }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
-                return rowsAffected == 1;
+                var id = await _connection.ExecuteScalarAsync<int>("[dbo].[facility_group_create]", new { name = model.Name }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return id;
             }
             catch (Exception ex)
             {
@@ -73,8 +73,8 @@ namespace FacilityMgmt.DAL.Dapper.Repositories
         {
             try
             {
-                var result = await _connection.ExecuteAsync("[dbo].[facility_group_delete_by_id]", new { id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
-                return true;
+                var rowsAffected = await _connection.ExecuteAsync("[dbo].[facility_group_delete_by_id]", new { id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return rowsAffected == 1;
             }
             catch (Exception ex)
             {

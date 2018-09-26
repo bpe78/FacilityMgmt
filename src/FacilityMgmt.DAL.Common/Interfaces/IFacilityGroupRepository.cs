@@ -9,7 +9,7 @@ namespace FacilityMgmt.DAL.Common.Interfaces
         Task<FacilityGroup[]> GetAll();
         Task<FacilityGroup> Get(int groupId);
 
-        Task<bool> Create(FacilityGroup model);
+        Task<int> Create(FacilityGroup model);
         Task<bool> Update(FacilityGroup model);
         Task<bool> Delete(int groupId);
     }

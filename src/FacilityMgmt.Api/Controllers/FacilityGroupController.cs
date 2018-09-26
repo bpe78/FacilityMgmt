@@ -8,6 +8,7 @@ using FacilityMgmt.Api.Contracts;
 using FacilityMgmt.DAL.Common.Interfaces;
 using FacilityMgmt.DAL.Common.Models;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace FacilityMgmt.Api.Controllers
 {
@@ -25,6 +26,9 @@ namespace FacilityMgmt.Api.Controllers
         }
 
         [HttpGet]
+        [SwaggerOperation("GetAllFacilityGroups")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult<IEnumerable<FacilityGroupDto>>> GetAll()
         {
             try
@@ -44,8 +48,15 @@ namespace FacilityMgmt.Api.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<FacilityGroupDto>> Get(int id)
+        [SwaggerOperation("GetFacilityGroupById")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult<FacilityGroupDto>> GetById(int id)
         {
+            if (id <= 0)
+                return BadRequest();
+
             try
             {
                 using (var tx = _dataService.BeginTransaction())
@@ -61,6 +72,10 @@ namespace FacilityMgmt.Api.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation("CreateFacilityGroup")]
+        [SwaggerResponse((int)HttpStatusCode.Created)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult> Post([FromBody] FacilityGroupDto dto)
         {
             try
@@ -68,9 +83,9 @@ namespace FacilityMgmt.Api.Controllers
                 using (var tx = _dataService.BeginTransaction())
                 {
                     var model = _mapper.Map<FacilityGroup>(dto);
-                    var result = await tx.FacilityGroups.Create(model);
-                    //return Created();
-                    return Ok();
+                    var id = await tx.FacilityGroups.Create(model);
+                    model.Id = id;
+                    return CreatedAtAction(nameof(GetById), new { id }, model);
                 }
             }
             catch (Exception ex)
@@ -80,6 +95,10 @@ namespace FacilityMgmt.Api.Controllers
         }
 
         [HttpPut("{id}")]
+        [SwaggerOperation("UpdateFacilityGroup")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
         public async Task<ActionResult> Put(int id, [FromBody] FacilityGroupDto dto)
         {
             try
@@ -88,7 +107,10 @@ namespace FacilityMgmt.Api.Controllers
                 {
                     var model = _mapper.Map<FacilityGroup>(dto);
                     var result = await tx.FacilityGroups.Update(model);
-                    return Ok();
+                    if (result)
+                        return Ok();
+                    else
+                        return NotFound();
                 }
             }
             catch (Exception ex)
@@ -98,9 +120,31 @@ namespace FacilityMgmt.Api.Controllers
         }
 
         [HttpDelete("{id}")]
-        public ActionResult Delete(int id)
+        [SwaggerOperation("DeleteFacilityGroup")]
+        [SwaggerResponse((int)HttpStatusCode.OK)]
+        [SwaggerResponse((int)HttpStatusCode.BadRequest)]
+        [SwaggerResponse((int)HttpStatusCode.Forbidden)]
+        [SwaggerResponse((int)HttpStatusCode.InternalServerError)]
+        public async Task<ActionResult> Delete(int id)
         {
-            return Forbid();
+            if (id <= 0)
+                return BadRequest();
+
+            try
+            {
+                using (var tx = _dataService.BeginTransaction())
+                {
+                    var result = await tx.FacilityGroups.Delete(id);
+                    if (result)
+                        return Ok();
+                    else
+                        return NotFound();
+                }
+            }
+            catch (Exception ex)
+            {
+                return StatusCode((int)HttpStatusCode.InternalServerError);
+            }
         }
     }
 }
