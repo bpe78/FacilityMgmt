@@ -1,7 +1,7 @@
 ﻿CREATE TABLE [dbo].[facility_group]
 (
-    [id] INT NOT NULL PRIMARY KEY,
-    [name] NVARCHAR(25) NOT NULL,
+    [id] INT NOT NULL PRIMARY KEY IDENTITY(1, 1),
+    [name] NVARCHAR(25) NOT NULL UNIQUE,
 
     [dta000] DATETIME2(3) NOT NULL,
     [dtb000] DATETIME2(3) NULL,

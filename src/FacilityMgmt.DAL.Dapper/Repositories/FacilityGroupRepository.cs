@@ -43,21 +43,37 @@ namespace FacilityMgmt.DAL.Dapper.Repositories
             }
         }
 
-        public Task<bool> Create(FacilityGroup model)
+        public async Task<bool> Create(FacilityGroup model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rowsAffected = await _connection.ExecuteAsync("[dbo].[facility_group_create]", new { name = model.Name }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return rowsAffected == 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
-        public Task<bool> Update(FacilityGroup model)
+        public async Task<bool> Update(FacilityGroup model)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rowsAffected = await _connection.ExecuteAsync("[dbo].[facility_group_update]", new { id = model.Id, name = model.Name }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                return rowsAffected == 1;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
         }
 
         public async Task<bool> Delete(int groupId)
         {
             try
             {
-                var result = await _connection.ExecuteAsync("[dbo].[facility_group_delete_by_id]", new { group_id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                var result = await _connection.ExecuteAsync("[dbo].[facility_group_delete_by_id]", new { id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return true;
             }
             catch (Exception ex)

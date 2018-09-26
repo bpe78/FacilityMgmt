@@ -1,6 +1,6 @@
 ﻿CREATE TABLE [dbo].[facility]
 (
-    [id] UNIQUEIDENTIFIER NOT NULL PRIMARY KEY, 
+    [id] UNIQUEIDENTIFIER DEFAULT NEWSEQUENTIALID() NOT NULL PRIMARY KEY, 
     [name] NVARCHAR(100) NOT NULL, 
     [short_name] NVARCHAR(20) NOT NULL,
     [group_id] INT NOT NULL REFERENCES [dbo].[facility_group](id),

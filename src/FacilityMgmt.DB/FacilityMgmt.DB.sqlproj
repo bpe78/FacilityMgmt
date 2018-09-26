@@ -68,6 +68,8 @@
     <Build Include="procs\facility_group_get_by_id.sql" />
     <Build Include="procs\facility_get_all.sql" />
     <Build Include="procs\facility_get_by_id.sql" />
+    <Build Include="procs\facility_group_create.sql" />
+    <Build Include="procs\facility_create.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="FacilityMgmt.DB.publish.xml" />

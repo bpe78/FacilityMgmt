@@ -51,10 +51,8 @@ namespace FacilityMgmt.Api
             builder.RegisterType<AppSettings>().As<IAppSettings>().SingleInstance().OnActivated(e => e.Instance.Validate());
             builder.RegisterType<GracenoteConnectorMock>().As<IGracenoteConnector>().SingleInstance();
             builder.RegisterInstance(Serilog.Log.Logger);
-            //builder.RegisterInstance(MappingConfiguration.Create());
+            builder.RegisterInstance(MappingConfiguration.Create());
 
-            //services.AddSingleton<Func<IAppSettings, SqlConnection>>((appSettings) => new SqlConnection(appSettings.FacilityConnectionString));
-            //services.AddSingleton<Func<IAppSettings, IDbConfiguration>>((appSettings) => new DbConfiguration(appSettings.FacilityConnectionString));
             builder.Register<IDbConfiguration>(ctx => new DbConfiguration(ctx.Resolve<IAppSettings>().FacilityConnectionString)).SingleInstance();
             // The following configurations are exclusive
             //TvListings.DAL.EF.ModuleLoader.Configure(builder);
