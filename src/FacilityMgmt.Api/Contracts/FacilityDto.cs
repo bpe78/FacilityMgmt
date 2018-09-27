@@ -20,14 +20,17 @@ namespace FacilityMgmt.Api.Contracts
         [JsonProperty(PropertyName = "accessToken", Required = Required.Always)]
         public string AccessToken { get; set; }
 
-        [JsonProperty(PropertyName = "region", Required = Required.Always)]
-        public string Region { get; set; }
+        [JsonProperty(PropertyName = "geography", Required = Required.Always)]
+        public string Geography { get; set; }
 
         [JsonProperty(PropertyName = "country", Required = Required.Always)]
         public string Country { get; set; }
 
         [JsonProperty(PropertyName = "areaCode", Required = Required.AllowNull)]
         public string AreaCode { get; set; }
+
+        [JsonProperty(PropertyName = "tvRegionId", Required = Required.AllowNull)]
+        public string TvRegionId { get; set; }
 
         [JsonProperty(PropertyName = "tvProviderId", Required = Required.Always)]
         public string TvProviderId { get; set; }
@@ -37,5 +40,11 @@ namespace FacilityMgmt.Api.Contracts
 
         [JsonProperty(PropertyName = "tvProviderType", Required = Required.Always)]
         public string TvProviderType { get; set; }
+
+        [JsonProperty(PropertyName = "isActive", Required = Required.Always)]
+        public bool IsActive { get; set; }
+
+        [JsonProperty(PropertyName = "refreshTimestamp", Required = Required.Always)]
+        public long RefreshTimestamp { get; set; }
     }
 }

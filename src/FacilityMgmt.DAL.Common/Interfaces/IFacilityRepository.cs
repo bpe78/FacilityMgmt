@@ -6,7 +6,7 @@ namespace FacilityMgmt.DAL.Common.Interfaces
 {
     public interface IFacilityRepository
     {
-        Task<Facility[]> GetAll();
+        Task<Facility[]> GetAll(int groupId);
         Task<Facility> Get(Guid facilityId);
 
         Task<bool> Create(Facility model);

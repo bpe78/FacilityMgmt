@@ -17,11 +17,14 @@ namespace FacilityMgmt.DAL.Dapper.Repositories
             _connection = connection ?? throw new ArgumentNullException(nameof(connection));
         }
 
-        public async Task<Facility[]> GetAll()
+        public async Task<Facility[]> GetAll(int groupId)
         {
+            if (groupId < 0)
+                throw new ArgumentOutOfRangeException(nameof(groupId));
+
             try
             {
-                var results = await _connection.QueryAsync<Facility>("[dbo].[facility_get_all]", commandType: CommandType.StoredProcedure).ConfigureAwait(false);
+                var results = await _connection.QueryAsync<Facility>("[dbo].[facility_get_all]", new { group_id = groupId }, commandType: CommandType.StoredProcedure).ConfigureAwait(false);
                 return results.ToArray();
             }
             catch (Exception ex)

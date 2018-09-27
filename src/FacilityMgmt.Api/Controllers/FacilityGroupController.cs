@@ -36,7 +36,7 @@ namespace FacilityMgmt.Api.Controllers
                 using (var tx = _dataService.BeginTransaction())
                 {
                     var models = await tx.FacilityGroups.GetAll();
-                    var dtos = models.Select(_mapper.Map<FacilityGroupDto>);
+                    var dtos = models.Select(_mapper.Map<FacilityGroupDto>).ToArray();
 
                     return new JsonResult(dtos);
                 }
