@@ -1,0 +1,17 @@
+<div>
+    <button mat-raised-button (click)="openAddGroupDialog()">Add new group</button>
+    <br />
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Delete</th>
+        </tr>
+
+        <tr *ngFor="let group of groups | async">
+            <td>{{group.id}}</td>
+            <td>{{group.name}}</td>
+            <td><button (click)="delete(group.id)">Delete</button></td>
+        </tr>
+    </table>
+</div>

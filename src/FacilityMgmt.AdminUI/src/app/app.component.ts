@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -8,10 +8,23 @@ import { map } from 'rxjs/operators';
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
     title = 'FacilityMgmt';
-    isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-        .pipe(map(result => result.matches));
+    isLoggedIn: boolean;
 
-    constructor(private breakpointObserver: BreakpointObserver) { }
+    constructor() {
+        this.isLoggedIn = false;
+    }
+
+    ngOnInit() {}
+
+    ngOnDestroy() {}
+
+    login() {
+        this.isLoggedIn = true;
+    }
+
+    logout() {
+        this.isLoggedIn = false;
+    }
 }
