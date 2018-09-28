@@ -40,10 +40,10 @@ namespace FacilityMgmt.Api
             });
 
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
+            /*services.AddSpaStaticFiles(configuration =>
             {
                 configuration.RootPath = "wwwRoot";
-            });
+            });*/
         }
 
         public void ConfigureContainer(ContainerBuilder builder)
@@ -74,7 +74,7 @@ namespace FacilityMgmt.Api
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-            app.UseSpaStaticFiles();
+            //app.UseSpaStaticFiles();
 
             app
                 .UseSwagger()
@@ -88,7 +88,7 @@ namespace FacilityMgmt.Api
                         name: "default",
                         template: "{controller}/{action=Index}/{id?}");
                 })
-                .UseSpa(spa =>
+                /*.UseSpa(spa =>
                 {
                     // To learn more about options for serving an Angular SPA from ASP.NET Core,
                     // see https://go.microsoft.com/fwlink/?linkid=864501
@@ -99,7 +99,7 @@ namespace FacilityMgmt.Api
                     {
                         spa.UseAngularCliServer(npmScript: "start");
                     }
-                });
+                })*/;
         }
     }
 }
