@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Autofac;
 using FacilityMgmt.Api.Interfaces;
 using FacilityMgmt.Api.Services;
 using FacilityMgmt.DAL.Common.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -15,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
 using Swashbuckle.AspNetCore.Swagger;
 
 namespace FacilityMgmt.Api
@@ -33,6 +32,31 @@ namespace FacilityMgmt.Api
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
 
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+            .AddJwtBearer(options =>
+            {
+                var authority = Configuration["AzureAd:Authority"];
+                var tenantId = Configuration["AzureAd:TenantId"];
+                var appId = Configuration["AzureAd:ClientId"];
+                var secret = Configuration["AzureAd:ClientSecret"];
+
+                options.Authority = authority;
+                options.Audience = appId;
+
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuer = false,
+                    ValidIssuer = authority,
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(System.Text.Encoding.ASCII.GetBytes(secret)),
+
+                    ValidateAudience = true,
+                    ValidAudiences = new string[] { appId },
+
+                    ValidateLifetime = true,
+                };
+            });
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info { Title = "FacilityManagement API", Version = "v1" });
@@ -50,7 +74,7 @@ namespace FacilityMgmt.Api
         {
             builder.RegisterType<AppSettings>().As<IAppSettings>().SingleInstance().OnActivated(e => e.Instance.Validate());
             builder.RegisterType<GracenoteConnectorMock>().As<IGracenoteConnector>().SingleInstance();
-            builder.RegisterInstance(Serilog.Log.Logger);
+            //builder.RegisterInstance(Serilog.Log.Logger);
             builder.RegisterInstance(MappingConfiguration.Create());
 
             builder.Register<IDbConfiguration>(ctx => new DbConfiguration(ctx.Resolve<IAppSettings>().FacilityConnectionString)).SingleInstance();
@@ -72,7 +96,8 @@ namespace FacilityMgmt.Api
                 app.UseHsts();
             }
 
-            app.UseHttpsRedirection();
+            //app.UseHttpsRedirection();
+            app.UseAuthentication();
             app.UseStaticFiles();
             //app.UseSpaStaticFiles();
 

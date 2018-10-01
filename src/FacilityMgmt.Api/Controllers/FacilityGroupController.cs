@@ -7,6 +7,7 @@ using AutoMapper;
 using FacilityMgmt.Api.Contracts;
 using FacilityMgmt.DAL.Common.Interfaces;
 using FacilityMgmt.DAL.Common.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
 
@@ -14,6 +15,7 @@ namespace FacilityMgmt.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FacilityGroupController : ControllerBase
     {
         private readonly IDataService _dataService;

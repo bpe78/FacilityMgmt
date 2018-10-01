@@ -4,12 +4,14 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using FacilityMgmt.Api.Interfaces;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FacilityMgmt.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class GracenoteController : ControllerBase
     {
         private readonly IGracenoteConnector _connector;

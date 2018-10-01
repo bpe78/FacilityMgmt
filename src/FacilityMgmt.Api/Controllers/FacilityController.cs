@@ -6,12 +6,15 @@ using System.Threading.Tasks;
 using AutoMapper;
 using FacilityMgmt.Api.Contracts;
 using FacilityMgmt.DAL.Common.Interfaces;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FacilityMgmt.Api.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [Authorize]
     public class FacilityController : ControllerBase
     {
         private readonly IDataService _dataService;
