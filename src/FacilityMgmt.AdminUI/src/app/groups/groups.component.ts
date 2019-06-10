@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material';
+import { MatDialog } from '@angular/material/dialog';
 import { BehaviorSubject } from 'rxjs';
 import { FacilityGroup } from '../models/facility-group.model';
 import { FacilityGroupService } from '../services/facility-group.service';
